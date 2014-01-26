@@ -5,7 +5,7 @@
 
 class GraphicsComponent : public Component{
 public:
-	GraphicsComponent(sf::Sprite* sprite);
+	explicit GraphicsComponent(sf::Sprite* sprite);
 	void update(int frameTime);
 	void render(sf::RenderTarget* target);
 private:

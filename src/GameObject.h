@@ -16,9 +16,9 @@ public:
 	void send(const ComponentMessage& message);
 	void addComponent(Component* component);
 	void update(int frameTime);
-	sf::Vector2f getPosition() const;
+	sfld::Vector2f getPosition() const;
 private:
 	int id_;
-	sf::Vector2f position_;
+	sfld::Vector2f position_;
 	ComponentPtrVector components_;
 };

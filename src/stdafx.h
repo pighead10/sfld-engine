@@ -12,6 +12,7 @@
 
 // TODO: reference additional headers your program requires here
 #include "SFML/Graphics.hpp"
+#include "Vector.h"
 #include <iostream>
 #include <cassert>
 #include <vector>

@@ -16,7 +16,7 @@ GameObject::GameObject(GameObject&& other) //would love to have this defaulted, 
 	}
 }
 
-sf::Vector2f GameObject::getPosition() const{
+sfld::Vector2f GameObject::getPosition() const{
 	return position_;
 }
 

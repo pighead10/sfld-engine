@@ -29,6 +29,12 @@ void TestState::start(){
 	GraphicsComponent* graphicsComponent = (new GraphicsComponent(new sf::Sprite(resourceManager_.get("test"))));
 	gameObject->addComponent(graphicsComponent);
 	gameObjectManager_->addObject(1,gameObject,graphicsComponent);
+
+	sfld::Vector2f testVector(5, 6);
+	sfld::Vector2f testVector2(5, 6);
+	sfld::Vector2f testVector3;
+
+	std::cout << (testVector + testVector2 + testVector3).x << std::endl;
 }
 
 void TestState::pause(){
