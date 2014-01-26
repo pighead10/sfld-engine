@@ -20,8 +20,6 @@ void SFLD::init(){
 	sf::VideoMode vm(1024,768);
 	window_.create(vm,"SFLD");
 	stateManager_.push(new TestState());
-
-	StateManager statemanager; //
 }
 
 
@@ -38,7 +36,7 @@ void SFLD::runMainLoop(){
 
 		handleSfmlEvents();
 
-		while(lag >= MS_PER_UPDATE){
+		while(lag >= MS_PER_UPDATE && !exit_){
 			update(MS_PER_UPDATE);
 			lag -= MS_PER_UPDATE;
 		}
@@ -62,7 +60,7 @@ void SFLD::update(int frameTime){
 
 void SFLD::render(){
 	if(!exit_){
-		window_.clear(sf::Color::Black);
+		window_.clear(sf::Color::White);
 		//application-wide rendering effects...
 		stateManager_.render(&window_);
 		window_.display();

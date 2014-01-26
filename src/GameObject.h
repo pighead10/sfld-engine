@@ -4,15 +4,21 @@
 
 class Component;
 class GameObjectManager;
+class ComponentMessage;
+
+typedef std::vector<std::unique_ptr<Component>> ComponentPtrVector;
 
 class GameObject : public sf::NonCopyable{
 public:
-	GameObject(GameObject&&) = default;
+	GameObject();
+	GameObject(GameObject&& other);
+
+	void send(const ComponentMessage& message);
 	void addComponent(Component* component);
 	void update(int frameTime);
-	
+	sf::Vector2f getPosition() const;
 private:
-	int id;
+	int id_;
 	sf::Vector2f position_;
-	std::vector<std::unique_ptr<Component>> components_;
+	ComponentPtrVector components_;
 };

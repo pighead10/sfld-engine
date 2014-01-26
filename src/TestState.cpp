@@ -2,6 +2,12 @@
 #include "TestState.h"
 #include "StateManager.h"
 #include "ResourceManager.h"
+#include "GameObjectManager.h"
+#include "GameObject.h"
+#include "GraphicsComponent.h"
+
+TestState::TestState() = default;
+TestState::~TestState() = default;
 
 void TestState::sfmlEvent(sf::Event evt){
 	switch(evt.type){
@@ -14,7 +20,15 @@ void TestState::sfmlEvent(sf::Event evt){
 }
 
 void TestState::start(){
-	
+	gameObjectManager_ = std::unique_ptr<GameObjectManager>(new GameObjectManager());
+
+	resourceManager_.setDirectory("src/media/images/");
+	resourceManager_.load("test", "test.png");
+
+	GameObject* gameObject = new GameObject();
+	GraphicsComponent* graphicsComponent = (new GraphicsComponent(new sf::Sprite(resourceManager_.get("test"))));
+	gameObject->addComponent(graphicsComponent);
+	gameObjectManager_->addObject(1,gameObject,graphicsComponent);
 }
 
 void TestState::pause(){
@@ -28,8 +42,9 @@ void TestState::exit(){
 }
 
 void TestState::update(int frameTime){
+	gameObjectManager_->updateAll(frameTime);
 }
 
 void TestState::render(sf::RenderTarget* target){
-	target->clear(sf::Color::Blue);
+	gameObjectManager_->renderAll(target);
 }

@@ -23,6 +23,6 @@ void ResourceManager<Resource,Identifier>::load(const Identifier& identifier,con
 template<typename Resource,typename Identifier>
 Resource& ResourceManager<Resource,Identifier>::get(const Identifier& identifier){
 	auto resource = resources_.find(identifier);
-	assert(resource != resources_.end() && "Could not get "+identifier);
-	return *resource.second;
+	assert(resource != resources_.end() && "Could not get identifier from resource map!");
+	return *resource->second;
 }

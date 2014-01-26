@@ -3,8 +3,12 @@
 #include "BaseState.h"
 #include "ResourceManager.h"
 
+class GameObjectManager;
+
 class TestState : public BaseState{
 public:
+	TestState();
+	~TestState();
 	void sfmlEvent(sf::Event evt);
 
 	void start();
@@ -15,6 +19,6 @@ public:
 	void update(int frameTime);
 	void render(sf::RenderTarget* target);
 private:
-	//vector of the game objects... but how do objects get added to it?
+	std::unique_ptr<GameObjectManager> gameObjectManager_;
 	ResourceManager<sf::Texture,std::string> resourceManager_;
 };

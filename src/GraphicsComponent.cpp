@@ -6,6 +6,7 @@ GraphicsComponent::GraphicsComponent(sf::Sprite* sprite){
 }
 
 void GraphicsComponent::update(int frameTime){
+	sprite_->setPosition(parent_->getPosition());
 }
 
 void GraphicsComponent::render(sf::RenderTarget* target){
