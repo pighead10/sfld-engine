@@ -16,6 +16,8 @@ public:
 	void send(const ComponentMessage& message);
 	void addComponent(Component* component);
 	void update(int frameTime);
+	void setPosition(const sfld::Vector2f& position);
+	void move(const sfld::Vector2f& offset);
 	sfld::Vector2f getPosition() const;
 private:
 	int id_;

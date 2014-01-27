@@ -15,6 +15,12 @@ Vector2<T>::Vector2(T X,T Y){
 }
 
 template<typename T>
+Vector2<T>::Vector2(const sf::Vector2<T>& vector){
+	x = vector.x;
+	y = vector.y;
+}
+
+template<typename T>
 float Vector2<T>::dot(const Vector2<T>& other) const{
 	return (x * other.x) + (y * other.y);
 }
@@ -22,6 +28,7 @@ float Vector2<T>::dot(const Vector2<T>& other) const{
 template<typename T>
 Vector2<T> Vector2<T>::normalise() const{
 	float len = length();
+	if (len == 0) return Vector2<T>(0, 0);
 	return Vector2<T>(x / len, y / len);
 }
 

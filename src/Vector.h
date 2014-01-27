@@ -10,6 +10,7 @@ namespace sfld{
 	public:
 		Vector2();
 		Vector2(T X, T Y);
+		Vector2(const sf::Vector2<T>& vector);
 		float dot(const Vector2<T>& other) const;
 		Vector2<T> normalise() const;
 		float length() const;

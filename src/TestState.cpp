@@ -5,6 +5,8 @@
 #include "GameObjectManager.h"
 #include "GameObject.h"
 #include "GraphicsComponent.h"
+#include "PhysicsComponent.h"
+#include "SampleInputComponent.h"
 
 TestState::TestState() = default;
 TestState::~TestState() = default;
@@ -27,14 +29,13 @@ void TestState::start(){
 
 	GameObject* gameObject = new GameObject();
 	GraphicsComponent* graphicsComponent = (new GraphicsComponent(new sf::Sprite(resourceManager_.get("test"))));
+	PhysicsComponent* physicsComponent = new PhysicsComponent(1);
+	SampleInputComponent* inputComponent = new SampleInputComponent(physicsComponent);
+
 	gameObject->addComponent(graphicsComponent);
+	gameObject->addComponent(physicsComponent);
+	gameObject->addComponent(inputComponent);
 	gameObjectManager_->addObject(1,gameObject,graphicsComponent);
-
-	sfld::Vector2f testVector(5, 6);
-	sfld::Vector2f testVector2(5, 6);
-	sfld::Vector2f testVector3;
-
-	std::cout << (testVector + testVector2 + testVector3).x << std::endl;
 }
 
 void TestState::pause(){

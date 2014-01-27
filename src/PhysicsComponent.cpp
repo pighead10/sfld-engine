@@ -1,11 +1,13 @@
 #include "stdafx.h"
 #include "PhysicsComponent.h"
+#include "GameObject.h"
 
-PhysicsComponent::PhysicsComponent(int speed) : speed_(speed){
+PhysicsComponent::PhysicsComponent(float speed) : speed_(speed){
 }
 
 void PhysicsComponent::update(int frameTime){
-	//update..
+	velocity_ = getDirection() * speed_;
+	parent_->move(getVelocity() * (float)frameTime);
 }
 
 sfld::Vector2f PhysicsComponent::getVelocity() const{
@@ -16,3 +18,10 @@ sfld::Vector2f PhysicsComponent::getDirection() const{
 	return direction_;
 }
 
+void PhysicsComponent::setDirection(const sfld::Vector2f& unnormalisedVector){
+	direction_ = unnormalisedVector.normalise();
+}
+
+void PhysicsComponent::setSpeed(float speed){
+	speed_ = speed;
+}

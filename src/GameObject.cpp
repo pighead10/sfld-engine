@@ -20,6 +20,14 @@ sfld::Vector2f GameObject::getPosition() const{
 	return position_;
 }
 
+void GameObject::move(const sfld::Vector2f& offset){
+	setPosition(getPosition() + offset);
+}
+
+void GameObject::setPosition(const sfld::Vector2f& position){
+	position_ = position;
+}
+
 void GameObject::addComponent(Component* component){ //the order things are added to this is the order that things will be updated
 	component->parent_ = this;
 	components_.push_back(std::unique_ptr<Component>(component));
