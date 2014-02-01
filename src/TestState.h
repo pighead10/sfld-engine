@@ -4,6 +4,7 @@
 #include "ResourceManager.h"
 
 class GameObjectManager;
+class CollisionGrid;
 
 class TestState : public BaseState{
 public:
@@ -19,6 +20,7 @@ public:
 	void update(int frameTime);
 	void render(sf::RenderTarget* target);
 private:
+	std::unique_ptr<CollisionGrid> collisionGrid_;
 	std::unique_ptr<GameObjectManager> gameObjectManager_;
 	ResourceManager<sf::Texture,std::string> resourceManager_;
 };

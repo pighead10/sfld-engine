@@ -7,6 +7,7 @@
 #include "GraphicsComponent.h"
 #include "PhysicsComponent.h"
 #include "SampleInputComponent.h"
+#include "CollisionGrid.h"
 
 TestState::TestState() = default;
 TestState::~TestState() = default;
@@ -23,13 +24,14 @@ void TestState::sfmlEvent(sf::Event evt){
 
 void TestState::start(){
 	gameObjectManager_ = std::unique_ptr<GameObjectManager>(new GameObjectManager());
+	collisionGrid_ = std::unique_ptr<CollisionGrid>(new CollisionGrid());
 
 	resourceManager_.setDirectory("src/media/images/");
 	resourceManager_.load("test", "test.png");
 
 	GameObject* gameObject = new GameObject();
-	GraphicsComponent* graphicsComponent = (new GraphicsComponent(new sf::Sprite(resourceManager_.get("test"))));
-	PhysicsComponent* physicsComponent = new PhysicsComponent(1);
+	GraphicsComponent* graphicsComponent = (new GraphicsComponent(new sf::Sprite(resourceManager_.get("test")),gameObject));
+	PhysicsComponent* physicsComponent = new PhysicsComponent(1, collisionGrid_.get());
 	SampleInputComponent* inputComponent = new SampleInputComponent(physicsComponent);
 
 	gameObject->addComponent(graphicsComponent);

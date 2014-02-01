@@ -8,7 +8,7 @@ GameObjectManager::GameObjectManager() = default;
 GameObjectManager::~GameObjectManager() = default;
 
 void GameObjectManager::updateAll(int frameTime){
-	std::map<int,GameObject>::iterator it;
+	GameObjectMap::iterator it;
 	for(it = gameObjects_.begin();it != gameObjects_.end();it++){
 		it->second.update(frameTime);
 	}
@@ -18,7 +18,7 @@ void GameObjectManager::addObject(int id,GameObject* gameObject,GraphicsComponen
 	assert(gameObjects_.count(id) == 0 && "Attempted to insert a GameObject with the same id as a previous object!");
 	gameObjects_.insert(std::make_pair(id,std::move(*gameObject)));
 	if (graphicsComponent != NULL){
-		graphicsComponents_[id] = std::unique_ptr<GraphicsComponent>(graphicsComponent);
+		graphicsComponents_[id] = graphicsComponent;
 	}
 }
 
@@ -37,8 +37,12 @@ void GameObjectManager::removeObject(int id){
 	}
 }
 
+GameObjectMap* GameObjectManager::getGameObjects(){
+	return &gameObjects_;
+}
+
 void GameObjectManager::renderAll(sf::RenderTarget* target){
-	std::map<int,std::unique_ptr<GraphicsComponent>>::iterator it;
+	GraphicsPtrMap::iterator it;
 	for(it = graphicsComponents_.begin();it!=graphicsComponents_.end();it++){
 		it->second->render(target);
 	}

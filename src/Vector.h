@@ -10,10 +10,13 @@ namespace sfld{
 	public:
 		Vector2();
 		Vector2(T X, T Y);
-		Vector2(const sf::Vector2<T>& vector);
+		Vector2(const sf::Vector2<T>& vector); //intentional implicit conversion
+		Vector2<T> rotate(float degrees);
+		Vector2<T> rotate(float degrees, const Vector2<T>& origin);
 		float dot(const Vector2<T>& other) const;
 		Vector2<T> normalise() const;
 		float length() const;
+		Vector2<T> perpendicular() const;
 		Vector2<T> lerp(const Vector2<T>& start, const Vector2<T>& end, float percent) const;
 	};
 

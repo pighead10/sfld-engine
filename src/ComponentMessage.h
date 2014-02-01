@@ -7,9 +7,9 @@ typedef std::map<std::string, void*> MessageInfo;
 class ComponentMessage{
 public:
 	enum MessageCategory{
-		MESSAGE_PHYSICS,
-		MESSAGE_AI,
-		MESSAGE_MISC,
+		CATEGORY_PHYSICS,
+		CATEGORY_AI,
+		CATEGORY_MISC,
 		//add more...
 	};
 
