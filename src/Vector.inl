@@ -66,3 +66,8 @@ template<typename T>
 Vector2<T> Vector2<T>::lerp(const Vector2<T>& start, const Vector2<T>& end, float percent) const{
 	return start + percent*(end - start);
 }
+
+template<typename T>
+Vector2<T> Vector2<T>::negate() const{
+	return Vector2<T>(-x, -y);
+}

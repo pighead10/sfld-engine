@@ -10,13 +10,14 @@ class PhysicsComponent;
 typedef std::vector<std::unique_ptr<Component>> ComponentPtrVector;
 
 class GameObject : public sf::NonCopyable{
-public:
+public:	
 	GameObject();
 	GameObject(GameObject&& other);
 	~GameObject();
 
 	void send(const ComponentMessage& message);
 	void addComponent(Component* component);
+	void addPhysicsComponent(PhysicsComponent* component);
 	void update(int frameTime);
 	
 	void move(const sfld::Vector2f& offset);

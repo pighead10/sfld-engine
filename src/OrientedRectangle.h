@@ -14,6 +14,7 @@ namespace sfld{
 		sfld::Vector2<T> getTopRight() const;
 		sfld::Vector2<T> getBotLeft() const;
 		sfld::Vector2<T> getBotRight() const;
+		sfld::Vector2<T> getCentre() const;
 		sfld::Vector2<T> checkForSATCollision(const sfld::OrientedRect<T>& other) const; //expensive
 		Projection project(const sfld::Vector2<T>& axis) const;
 	private:

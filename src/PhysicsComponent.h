@@ -1,5 +1,6 @@
 //PhysicsComponent
 //handles movement and collisions
+//does not support collisions if tiles are bigger than 128x128
 
 #pragma once
 
@@ -29,6 +30,7 @@ public:
 	FloatOrientedRect getOrientedBoundings();
 
 	void moveOnGrid(const sfld::Vector2f& position); //should NOT be called from this function
+	void addToGrid(const sfld::Vector2f& position);
 private:
 	std::vector<GameObject*> doneCollisions_;
 	CollisionGrid* collisionGrid_;

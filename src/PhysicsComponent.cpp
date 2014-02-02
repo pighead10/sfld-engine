@@ -16,7 +16,7 @@ PhysicsComponent::~PhysicsComponent(){
 
 void PhysicsComponent::update(int frameTime){
 	velocity_ = getDirection() * speed_;
-	parent_->move(getVelocity() * (float)frameTime);
+	moveWithCollisions(frameTime);
 }
 
 sfld::Vector2f PhysicsComponent::getVelocity() const{
@@ -29,6 +29,10 @@ sfld::Vector2f PhysicsComponent::getDirection() const{
 
 void PhysicsComponent::moveOnGrid(const sfld::Vector2f& position){ //should not be called by PhysicsComponent
 	collisionGrid_->move(parent_->getPosition(), position, this);
+}
+
+void PhysicsComponent::addToGrid(const sfld::Vector2f& position){ //should not be called by PhysicsComponent
+	collisionGrid_->add(position, this);
 }
 
 bool PhysicsComponent::isWithinCollisionRange(GameObject* object){
@@ -72,7 +76,8 @@ void PhysicsComponent::collided(GameObject* other){
 }
 
 void PhysicsComponent::moveWithCollisions(int frameTime){
-	sfld::Vector2f newPos = parent_->getPosition() + (getVelocity() * (float)frameTime);
+	sfld::Vector2f movement = getVelocity() * (float)frameTime;
+	sfld::Vector2f newPos = parent_->getPosition() + movement;
 
 	sf::FloatRect boundings = parent_->getBoundings();
 	boundings.left = newPos.x;
@@ -82,15 +87,23 @@ void PhysicsComponent::moveWithCollisions(int frameTime){
 	PhysicsContainer potentialCollisions = collisionGrid_->getPotentialCollisions(orientedBoundings);
 	PhysicsContainer::iterator it;
 	for (it = potentialCollisions.begin(); it != potentialCollisions.end(); it++){
-		sfld::Vector2f mtv = orientedBoundings.checkForSATCollision((*it)->getOrientedBoundings());
-		if (mtv != sfld::Vector2f(0, 0)){
-			//collision
-			newPos -= mtv;
+		if (*it != this){
+			sfld::Vector2f mtv = orientedBoundings.checkForSATCollision((*it)->getOrientedBoundings());
+			if (mtv != sfld::Vector2f(0, 0)){
+				//collision
 
-			(*it)->collided(parent_);
-			collided((*it)->parent_);
+				//hack
+				if (movement != sfld::Vector2f(0, 0)){
+					newPos -= mtv;
+				}
+
+				(*it)->collided(parent_);
+				collided((*it)->parent_);
+			}
 		}
 	}
+
+	parent_->setPosition(newPos);
 }
 
 

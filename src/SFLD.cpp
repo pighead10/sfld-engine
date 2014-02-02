@@ -2,7 +2,6 @@
 #include "SFLD.h"
 #include "TestState.h"
 
-
 SFLD::SFLD():stateManager_(this){
 }
 

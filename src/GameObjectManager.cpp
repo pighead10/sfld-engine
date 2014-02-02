@@ -14,7 +14,7 @@ void GameObjectManager::updateAll(int frameTime){
 	}
 }
 
-void GameObjectManager::addObject(int id,GameObject* gameObject,GraphicsComponent* graphicsComponent){ //graphicsComponent can be NULL. *gameObject is left blank.
+void GameObjectManager::addObject(int id,GameObject* gameObject,GraphicsComponent* graphicsComponent){ //graphicsComponent and physicsComponent can be NULL. *gameObject is left blank.
 	assert(gameObjects_.count(id) == 0 && "Attempted to insert a GameObject with the same id as a previous object!");
 	gameObjects_.insert(std::make_pair(id,std::move(*gameObject)));
 	if (graphicsComponent != NULL){

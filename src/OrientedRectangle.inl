@@ -39,6 +39,11 @@ Projection OrientedRect<T>::project(const Vector2<T>& axis) const{
 	return Projection(min, max);
 }
 
+template<typename T>
+Vector2<T> OrientedRect<T>::getCentre() const{
+	return Vector2<T>((getTopLeft().x + getTopRight().x) / 2, (getTopLeft().y + getBotLeft().y) / 2);
+}
+
 //returns minimum translation vector
 template<typename T>
 Vector2<T> OrientedRect<T>::checkForSATCollision(const OrientedRect<T>& other) const{
@@ -67,7 +72,15 @@ Vector2<T> OrientedRect<T>::checkForSATCollision(const OrientedRect<T>& other) c
 		}
 	}
 
-	return smallestAxis*(T)overlap;
+	Vector2<T> mtv = smallestAxis;
+	Vector2<T> centreA = getCentre();
+	Vector2<T> centreB = other.getCentre();
+	Vector2<T> ab = centreB - centreA;
+	if (mtv.dot(ab) < 0){
+		mtv = mtv.negate();
+	}
+
+	return mtv*(T)overlap;
 }
 
 template<typename T>

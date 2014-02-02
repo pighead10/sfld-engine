@@ -18,6 +18,7 @@ namespace sfld{
 		float length() const;
 		Vector2<T> perpendicular() const;
 		Vector2<T> lerp(const Vector2<T>& start, const Vector2<T>& end, float percent) const;
+		Vector2<T> negate() const;
 	};
 
 	typedef Vector2<float> Vector2f;

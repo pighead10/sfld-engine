@@ -4,7 +4,7 @@
 #include "ComponentMessage.h"
 #include "PhysicsComponent.h"
 
-GameObject::GameObject() 
+GameObject::GameObject()
 	: rotation_(0), id_(0), physicsComponent_(NULL){
 }
 
@@ -83,6 +83,12 @@ void GameObject::addComponent(Component* component){ //the order things are adde
 	component->parent_ = this;
 	components_.push_back(std::unique_ptr<Component>(component));
 	components_.back()->parent_ = this;
+}
+
+void GameObject::addPhysicsComponent(PhysicsComponent* component){
+	addComponent(component);
+	physicsComponent_ = component;
+	physicsComponent_->addToGrid(getPosition());
 }
 
 void GameObject::update(int frameTime){
