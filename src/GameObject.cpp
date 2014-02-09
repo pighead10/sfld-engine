@@ -42,6 +42,9 @@ void GameObject::setSize(const sfld::Vector2f& size){
 
 void GameObject::setRotation(float degrees){
 	rotation_ = degrees;
+	MessageInfo info;
+	info["degrees"] = &degrees;
+	send(ComponentMessage(ComponentMessage::CATEGORY_PHYSICS, ComponentMessage::PHYSICS_ROTATION, info));
 }
 
 float GameObject::getRotation() const{
@@ -58,6 +61,9 @@ sfld::Vector2f GameObject::getOrigin() const{
 
 void GameObject::setOrigin(const sfld::Vector2f& origin){
 	origin_ = origin;
+	MessageInfo info;
+	info["origin"] = &sfld::Vector2f(origin);
+	send(ComponentMessage(ComponentMessage::CATEGORY_AI, ComponentMessage::PHYSICS_ORIGIN, info));
 }
 
 void GameObject::move(const sfld::Vector2f& offset){
@@ -73,6 +79,10 @@ void GameObject::setPosition(const sfld::Vector2f& position){
 
 bool GameObject::hasPhysics() const{
 	return physicsComponent_ != NULL;
+}
+
+void GameObject::clean(){
+	send(ComponentMessage(ComponentMessage::CATEGORY_MISC, ComponentMessage::MISC_CLEAN, MessageInfo()));
 }
 
 sf::FloatRect GameObject::getBoundings() const{

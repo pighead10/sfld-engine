@@ -50,7 +50,7 @@ PhysicsContainer CollisionGrid::getPotentialCollisions(const sfld::FloatOriented
 	std::map<std::pair<int,int>, bool>::iterator it;
 	for (it = areasToCheck.begin(); it != areasToCheck.end(); it++){
 		PhysicsContainer* gridObjects = &grid_[std::make_pair(it->first.first,it->first.second)];
-		objects.insert(objects.end(), gridObjects->begin(), gridObjects->end());
+		objects.insert(objects.end(), gridObjects->begin(), gridObjects->end()); //bottleneck in debug mode, could change this to a vector<PhysicsContainer*> but not worth it yet
 	}
 
 	return objects;

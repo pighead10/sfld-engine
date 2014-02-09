@@ -12,6 +12,9 @@ void GameObjectManager::updateAll(int frameTime){
 	for(it = gameObjects_.begin();it != gameObjects_.end();it++){
 		it->second.update(frameTime);
 	}
+	for (it = gameObjects_.begin(); it != gameObjects_.end(); it++){
+		it->second.clean();
+	}
 }
 
 void GameObjectManager::addObject(int id,GameObject* gameObject,GraphicsComponent* graphicsComponent){ //graphicsComponent and physicsComponent can be NULL. *gameObject is left blank.

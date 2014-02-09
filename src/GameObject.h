@@ -37,6 +37,8 @@ public:
 	sf::FloatRect getBoundings() const;
 
 	bool hasPhysics() const;
+
+	void clean();
 private:
 	PhysicsComponent* physicsComponent_;
 

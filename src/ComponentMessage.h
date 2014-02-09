@@ -15,7 +15,9 @@ public:
 
 	enum MessageType{
 		PHYSICS_COLLISION,
-		MISC,
+		PHYSICS_ROTATION,
+		PHYSICS_ORIGIN,
+		MISC_CLEAN,
 		//add more...
 	};
 

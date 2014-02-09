@@ -31,6 +31,8 @@ public:
 
 	void moveOnGrid(const sfld::Vector2f& position); //should NOT be called from this function
 	void addToGrid(const sfld::Vector2f& position);
+
+	void receive(const ComponentMessage& message);
 private:
 	std::vector<GameObject*> doneCollisions_;
 	CollisionGrid* collisionGrid_;

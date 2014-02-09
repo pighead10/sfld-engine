@@ -10,6 +10,14 @@ PhysicsComponent::PhysicsComponent(float speed, CollisionGrid* collisionGrid)
 	: speed_(speed), collisionGrid_(collisionGrid) {
 }
 
+void PhysicsComponent::receive(const ComponentMessage& message){
+	if (message.getMessageCategory() == ComponentMessage::CATEGORY_MISC){
+		if (message.getMessageType() == ComponentMessage::MISC_CLEAN){
+			doneCollisions_.clear();
+		}
+	}
+}
+
 PhysicsComponent::~PhysicsComponent(){
 	collisionGrid_->remove(parent_->getPosition(), this);
 }
@@ -86,6 +94,9 @@ void PhysicsComponent::moveWithCollisions(int frameTime){
 	FloatOrientedRect orientedBoundings = getOrientedBoundings();
 	PhysicsContainer potentialCollisions = collisionGrid_->getPotentialCollisions(orientedBoundings);
 	PhysicsContainer::iterator it;
+
+	sfld::Vector2f futureMtv;
+
 	for (it = potentialCollisions.begin(); it != potentialCollisions.end(); it++){
 		if (*it != this){
 			sfld::Vector2f mtv = orientedBoundings.checkForSATCollision((*it)->getOrientedBoundings());
@@ -94,7 +105,12 @@ void PhysicsComponent::moveWithCollisions(int frameTime){
 
 				//hack
 				if (movement != sfld::Vector2f(0, 0)){
-					newPos -= mtv;
+					if (abs(futureMtv.x) < abs(mtv.x)){
+						futureMtv.x += mtv.x;
+					}
+					if (abs(futureMtv.y) < abs(mtv.y)){
+						futureMtv.y += mtv.y;
+					}
 				}
 
 				(*it)->collided(parent_);
@@ -103,6 +119,7 @@ void PhysicsComponent::moveWithCollisions(int frameTime){
 		}
 	}
 
+	newPos -= futureMtv;
 	parent_->setPosition(newPos);
 }
 
